@@ -25,6 +25,9 @@ if (!isset($_POST['nome']) || empty($_POST['nome']) ||
     !isset($_POST['Numero']) || empty($_POST['Numero']) ||
     !isset($_POST['Email']) || empty($_POST['Email']) ||
     !isset($_POST['foto']) || empty($_POST['foto'])) {
+        echo "<pre>";
+        print_r($_POST);
+        print_r($_FILES);
     echo "Erro: Todos os campos obrigatórios devem ser preenchidos.";
     exit();
 }
