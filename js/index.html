@@ -1,0 +1,147 @@
+<!-- Nome:
+CPF:
+RG:
+Endereço: (auto preencher o endereço com base no CEP digitado)
+Nº
+E-mail:
+Envio de arquivo: (pdf, doc, png)
+Gravar a data e hora da inclusão do registro e exibir no form -->
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de cliente</title>
+    <link rel="stylesheet" href="estilos/style.css">
+    <link rel="stylesheet" href="estilos/media-query.css">
+</head>
+<body>
+    <main>
+      
+    <section id="login">
+      <p style="text-align: center";>Acesso administrador</p>
+    <div id="campos">
+        <input class="validacao" id="ilogin" type="email" name="ilogin" placeholder="Seu e-mail" autocomplete="email" required maxlength="60"><br>
+        <input class="validacao" type="password" name="Senha" id="isenha" placeholder="Sua senha" autocomplete="current-password" required="" minlength="8" maxlength="20">
+    </div>
+        
+    <div id="imagem"></div>
+    <h1>Cadastro de Clientes</h1>
+    <div id="cadastro">
+    <p style="text-align: center;"><b><i>Cadastre-se ou realize a busca!!</i></b></p>
+    <input id="pesquise" type="text" name="nome" placeholder="Pesquise pelos seguintes metódos: Nome, RG e CPF"> 
+   
+    <form action="login.php" method="POST" enctype="multipart/form-data" autocomplete="on">
+ 
+        <input class="validacao" id="Nome" type="text" name="nome" placeholder="Digite seu nome..." required>
+        <input class="validacao" id="cpf" type="text" name="CPF" placeholder="Digite o número do seu CPF utilizando:XXX.XXX.XXX-XX" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" required>
+        <input class="validacao" id="RG" type="text" name="RG" placeholder="Número do seu RG...."required>
+        <input class="validacao" id="Cep" type="text" name="CEP" placeholder="Digite o seu CEP...." required>
+        <input class="validacao" id="End" type="text" name="Endereco" placeholder="Seu endereço....">
+        <input class="validacao" id="cidade" type="text" name="Cidade" placeholder="Sua cidade....">
+        <input class="validacao" id="UF" type="text" name="Estado" placeholder="Seu Estado....">
+        <input class="validacao" id="Num" type="text" name="Numero" placeholder="Digite o Nº...">
+        <input class="validacao" id="Email" type="email" name="Email" placeholder="Seu e-mail" autocomplete="email" required maxlength="60">
+        <input type="file"  name="foto" accept=".jpg, .jpeg, .png, .gif" required>
+        <input id="enviado" onclick=Enviar() type="submit" name="enviar-formulario" value="Enviar/Salvar-alterações">
+        <label id="relogio" style="font-size: 23px;">HORA</label>
+    </form>
+
+    <script src="jquery-3.6.2.js"></script>
+    <script>
+
+        //Validar CEP
+            $(document).ready(function(){
+                $("#Cep").blur(function(){
+                let valor = $(this).val(); 
+            $.ajax({
+                url: "https://viacep.com.br/ws/" + valor + "/json/",
+                type: "GET",
+                success: function(dados, status){
+                    $("#End").val(dados.logradouro);
+                    $("#cidade").val(dados.localidade);
+                    $("#UF").val(dados.uf);
+                },
+                error:function(){
+                    alert('CEP incorreto, digite um CEP válido')
+                }
+            })
+        })
+      });
+
+      // Trecho da validação da foto
+        // const form = document.querySelector("form");
+        // form.addEventListener("submit", function(event) {
+        // event.preventDefault();
+
+        const formatosPermitidos = ["png", "jpeg", "jpg", "gif"];
+        const arquivo = document.querySelector('input[type="file"]').files[0];
+        const extensao = arquivo.name.split(".").pop();
+         if (formatosPermitidos.includes(extensao)) {
+        }
+        //Validação dos inputs
+        const validar = document.querySelectorAll(".validacao");
+        const values = [];
+        for (let i = 0; i < validar.length; i++) {
+        if (validar[i].value) {
+        values.push("\n" + validar[i].value);
+        }
+    }
+        if (values.length === validar.length) {
+        const date = new Date();
+        // alert("Todos os campos estão preenchidos" + "\nData e hora: " + date.toLocaleString());
+        console.log("Dados salvos em: " + "\n" + values + "\n" + "\nData e Hora: " + date.toLocaleString())
+        mostrarHora()
+}
+// });
+
+//Horario no form
+const dozeHoras = 12;
+
+const mostrarHora = function() {
+  const relogio = document.getElementById('relogio');
+
+  if (!relogio) {
+    console.error('Elemento relógio não encontrado na página');
+    return;
+  }
+
+  relogio.innerHTML = "00:00:00";
+  clock();
+};
+
+const clock = function() {
+  const agora = new Date();
+
+  let horas = agora.getHours();
+  let minutos = agora.getMinutes();
+  let segundos = agora.getSeconds();
+
+  if (horas < 10) {
+    horas = '0' + horas;
+  }
+  if (minutos < 10) {
+    minutos = '0' + minutos;
+  }
+  if (segundos < 10) {
+    segundos = '0' + segundos;
+  }
+
+  const montar_relogio = horas + ':' + minutos + ':' + segundos;
+  const relogio = document.getElementById('relogio');
+  relogio.innerText = montar_relogio;
+};
+
+const Enviar = function() {
+    
+};
+
+</script>
+    </div>
+    </section>
+    </main>
+</body>
+</html>
