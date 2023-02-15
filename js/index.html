@@ -45,8 +45,8 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
         <input class="validacao" id="UF" type="text" name="Estado" placeholder="Seu Estado....">
         <input class="validacao" id="Num" type="text" name="Numero" placeholder="Digite o Nº...">
         <input class="validacao" id="Email" type="email" name="Email" placeholder="Seu e-mail" autocomplete="email" required maxlength="60">
-        <input type="file"  name="foto" accept=".jpg, .jpeg, .png, .gif" required>
-        <input id="enviado" onclick=Enviar() type="submit" name="enviar-formulario" value="Enviar/Salvar-alterações">
+        <input type="file" name="file" accept=".jpg, .jpeg, .png, .gif" required>
+        <input id="enviado" onclick=Enviar() type="submit" name="enviar-formulario" value="Enviar">
         <label id="relogio" style="font-size: 23px;">HORA</label>
     </form>
 
@@ -73,9 +73,9 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
       });
 
       // Trecho da validação da foto
-        // const form = document.querySelector("form");
-        // form.addEventListener("submit", function(event) {
-        // event.preventDefault();
+        const form = document.querySelector("form");
+        form.addEventListener("submit", function(event) {
+        event.preventDefault();
 
         const formatosPermitidos = ["png", "jpeg", "jpg", "gif"];
         const arquivo = document.querySelector('input[type="file"]').files[0];
@@ -96,7 +96,7 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
         console.log("Dados salvos em: " + "\n" + values + "\n" + "\nData e Hora: " + date.toLocaleString())
         mostrarHora()
 }
-// });
+});
 
 //Horario no form
 const dozeHoras = 12;
