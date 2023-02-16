@@ -28,30 +28,30 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
         <input id="ilogin" type="email" name="ilogin" placeholder="Seu e-mail" autocomplete="email" required maxlength="60"><br>
         <input type="password" name="Senha" id="isenha" placeholder="Sua senha" autocomplete="current-password" required="" minlength="8" maxlength="20">
     </div>
-    <input id="abrir" onclick= entrar() type="button" value="Entrar">
+    <input id="abrir" type="button" value="Entrar">
     
     <div id="imagem"></div>
     <h1>Cadastro de Clientes</h1>
     <div id="cadastro">
     <p><b><i>Cadastre-se ou realize a busca!!</i></b></p>
     <input id="pesquise" type="text" name="nome" placeholder="Pesquise pelos seguintes metódos: Nome, RG e CPF"> 
-    <i id="icon" class="fa-solid fa-magnifying-glass-plus"></i>
+    <i id="icon" onclick=iconPesquisa() class="fa-solid fa-magnifying-glass-plus"></i>
    
-    <form action="" method="POST" enctype="multipart/form-data" autocomplete="on">
+    <form id="form1" action="login.php" method="POST" enctype="multipart/form-data" autocomplete="on">
  
         <input class="validacao" id="Nome" type="text" name="nome" placeholder="Digite seu nome..." value="Willian" required>
         <input class="validacao" id="cpf" type="text" name="CPF" placeholder="Digite o número do seu CPF utilizando:XXX.XXX.XXX-XX" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" value="451.998.248-05" required>
-        <input class="validacao" id="RG" type="text" name="RG" placeholder="Número do seu RG...." value="5452542172" required>
+        <input class="validacao" id="RG" type="text" name="RG" placeholder="Número do seu RG...." value="5454167461" required>
         <input class="validacao" id="Cep" type="text" name="CEP" placeholder="Digite o seu CEP...." value="13170-575" required>
-        <input class="validacao" id="End" type="text" name="Endereco" placeholder="Seu endereço...." value="blablablabla">
-        <input class="validacao" id="cidade" type="text" name="Cidade" placeholder="Sua cidade...." value="sumare">
+        <input class="validacao" id="End" type="text" name="Endereco" placeholder="Seu endereço...." value="blablallbvl">
+        <input class="validacao" id="cidade" type="text" name="Cidade" placeholder="Sua cidade...." value="Sumare">
         <input class="validacao" id="UF" type="text" name="Estado" placeholder="Seu Estado...." value="SP">
-        <input class="validacao" id="Num" type="text" name="Numero" placeholder="Digite o Nº..." value="394">
-        <input class="validacao" id="Email" type="email" name="Email" placeholder="Seu e-mail" autocomplete="email" value="blebleble@gmail.com" required maxlength="60">
+        <input class="validacao" id="Num" type="text" name="Numero" placeholder="Digite o Nº..." value="94">
+        <input class="validacao" id="Email" type="email" name="Email" placeholder="Seu e-mail" autocomplete="email" value="blablabla@gmail.com" required maxlength="60">
         <input class="validacao" type="password" name="Senha" placeholder="Digite sua senha" value="Willian">
-        <input type="file" name="foto" accept=".jpg, .jpeg, .png, .gif" required>
-        <input type="submit" onclick=Enviar() name="enviar-formulario" value="Enviar">
-        <label id="relogio" style="font-size: 23px;"></label>
+        <input class="validacao" type="file" name="foto" accept=".jpg, .jpeg, .png, .gif" required>
+        <input type="submit" name="enviar-formulario" value="Enviar">
+        <label id="relogio" style="font-size: 18px;"></label>
     </form>
     
     <script src="jquery-3.6.2.js"></script>
@@ -78,6 +78,7 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
 
       // Trecho da validação da foto
         const form = document.querySelector("form");
+        const form2 = $("#form1");
         form.addEventListener("submit", function(event) {
         event.preventDefault();
 
@@ -85,7 +86,11 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
         const arquivo = document.querySelector('input[type="file"]').files[0];
         const extensao = arquivo.name.split(".").pop();
          if (formatosPermitidos.includes(extensao)) {
+        }else{
+          alert("Formato inválido, selecionar formato válido!!")
         }
+
+   
          //Validação dos inputs
         const validar = document.getElementsByClassName("validacao");
         const values = [];
@@ -98,15 +103,40 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
         const date = new Date();
         // alert("Todos os campos estão preenchidos" + "\nData e hora: " + date.toLocaleString());
         console.log("Dados salvos em: " + "\n" + values + "\n" + "\nData e Hora: " + date.toLocaleString())
-
         mostrarHora()
-      };
-        
+
+
+        let fd = new FormData();
+        fd.append("foto", arquivo);
+
+        console.log(form)
+        let inputs =  form2.children();
+        for(let element of inputs){
+          if(element.classList.contains("validacao")){
+            fd.append(element.name, element.value)
+          }
+        }
+       //.forEach(element => {
+         
+        //});
+       
+
+        $.ajax({
+          url:"./login.php",
+          method:"POST",
+          data:fd,
+          contentType: false,
+          processData: false,
+          success:function(){
+          location.reload()
+          }
+        })
+    };   
+
 })
 
-     
+ 
 //Horario no form
-const dozeHoras = 12;
 
 const mostrarHora = function() {
   const relogio = document.getElementById('relogio');
@@ -137,7 +167,7 @@ const clock = function() {
     segundos = '0' + segundos;
   }
 
-  const montar_relogio = horas + ':' + minutos + ':' + segundos;
+  const montar_relogio = ("Dados salvo às: ") +  horas + ':' + minutos + ':' + segundos;
   const relogio = document.getElementById('relogio');
   relogio.innerText = montar_relogio;
 };
@@ -145,24 +175,47 @@ const clock = function() {
 
 const pesquisar = document.getElementById('pesquise');
 const icon = document.getElementById('icon');
+const values = [];
 
 icon.addEventListener('click', function() {
   const pesquisa = pesquisar.value;
   const validarCPF = document.getElementById('cpf')
   const validarRG = document.getElementById('RG')
   const validarNome = document.getElementById('Nome')
+  const valores = values
   
   if (pesquisa && (validarCPF || validarRG || validarNome)) {
     console.log("Os dados encontrados foram:", pesquisa);
-    // Código para pesquisar no banco de dados e exibir os resultados.
+    valores()
+    return valores;
   } else {
     console.log("Realizar nova busca");
   }
 });
 
-const Enviar = function(){
+const acesso = document.getElementById('ilogin');
+const senha = document.getElementById('isenha');
+const abrir = document.getElementById('abrir');
 
-}
+abrir.addEventListener('click', function() {
+  const regex = /^[a-zA-Z0-9._@-]+$/;
+
+  const logar = acesso.value;
+  const password = senha.value;
+
+  //const validarCPF = document.getElementById('cpf')
+  // const validarRG = true; // Substitua com a validação do RG
+  // const validarNome = true; // Substitua com a validação do nome
+
+  if (logar && password) {
+    if (regex.test(logar) && regex.test(password)) {
+      console.log("Campos válidos, login aceito");
+    } else {
+      alert("Os campos de login e senha contêm caracteres inválidos");
+      alert("Preencha  os campos, usando números, letras e apenas caracteres especiais: '. _ - ',");
+    }
+  }
+});
 
 </script>
     </div>
