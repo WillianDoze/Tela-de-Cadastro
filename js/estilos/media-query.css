@@ -16,11 +16,11 @@
         height: 6%;
         padding: 4px;
         margin-right: 60px;
-        margin-top: 280px;
+        margin-top: 140px;
         
     }
     section#login > input#abrir{
-        transform: translate(+140%, +1070%);
+        transform: translate(+140%, +670%);
         margin-left: 113px;
     }
     section#login > h1{
@@ -48,7 +48,7 @@
     }
     
     section#login > p {
-        transform: translate(+171%, +1000%);
+        transform: translate(+171%, 500%);
         
         font-size: 20px;
         border: 21px;
