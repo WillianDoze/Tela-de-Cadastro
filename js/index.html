@@ -17,39 +17,43 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
     <title>Cadastro de cliente</title>
     <link rel="stylesheet" href="estilos/style.css">
     <link rel="stylesheet" href="estilos/media-query.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <main>
       
     <section id="login">
-      <p style="text-align: center";>Acesso administrador</p>
+      <p style="text-align: center;">Acesso administrador</p>
     <div id="campos">
-        <input class="validacao" id="ilogin" type="email" name="ilogin" placeholder="Seu e-mail" autocomplete="email" required maxlength="60"><br>
-        <input class="validacao" type="password" name="Senha" id="isenha" placeholder="Sua senha" autocomplete="current-password" required="" minlength="8" maxlength="20">
+        <input id="ilogin" type="email" name="ilogin" placeholder="Seu e-mail" autocomplete="email" required maxlength="60"><br>
+        <input type="password" name="Senha" id="isenha" placeholder="Sua senha" autocomplete="current-password" required="" minlength="8" maxlength="20">
     </div>
-        
+    <input id="abrir" onclick= entrar() type="button" value="Entrar">
+    
     <div id="imagem"></div>
     <h1>Cadastro de Clientes</h1>
     <div id="cadastro">
-    <p style="text-align: center;"><b><i>Cadastre-se ou realize a busca!!</i></b></p>
+    <p><b><i>Cadastre-se ou realize a busca!!</i></b></p>
     <input id="pesquise" type="text" name="nome" placeholder="Pesquise pelos seguintes metódos: Nome, RG e CPF"> 
+    <i id="icon" class="fa-solid fa-magnifying-glass-plus"></i>
    
-    <form action="login.php" method="POST" enctype="multipart/form-data" autocomplete="on">
+    <form action="" method="POST" enctype="multipart/form-data" autocomplete="on">
  
-        <input class="validacao" id="Nome" type="text" name="nome" placeholder="Digite seu nome..." required>
-        <input class="validacao" id="cpf" type="text" name="CPF" placeholder="Digite o número do seu CPF utilizando:XXX.XXX.XXX-XX" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" required>
-        <input class="validacao" id="RG" type="text" name="RG" placeholder="Número do seu RG...."required>
-        <input class="validacao" id="Cep" type="text" name="CEP" placeholder="Digite o seu CEP...." required>
-        <input class="validacao" id="End" type="text" name="Endereco" placeholder="Seu endereço....">
-        <input class="validacao" id="cidade" type="text" name="Cidade" placeholder="Sua cidade....">
-        <input class="validacao" id="UF" type="text" name="Estado" placeholder="Seu Estado....">
-        <input class="validacao" id="Num" type="text" name="Numero" placeholder="Digite o Nº...">
-        <input class="validacao" id="Email" type="email" name="Email" placeholder="Seu e-mail" autocomplete="email" required maxlength="60">
-        <input type="file" name="file" accept=".jpg, .jpeg, .png, .gif" required>
-        <input id="enviado" onclick=Enviar() type="submit" name="enviar-formulario" value="Enviar">
-        <label id="relogio" style="font-size: 23px;">HORA</label>
+        <input class="validacao" id="Nome" type="text" name="nome" placeholder="Digite seu nome..." value="Willian" required>
+        <input class="validacao" id="cpf" type="text" name="CPF" placeholder="Digite o número do seu CPF utilizando:XXX.XXX.XXX-XX" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" value="451.998.248-05" required>
+        <input class="validacao" id="RG" type="text" name="RG" placeholder="Número do seu RG...." value="5452542172" required>
+        <input class="validacao" id="Cep" type="text" name="CEP" placeholder="Digite o seu CEP...." value="13170-575" required>
+        <input class="validacao" id="End" type="text" name="Endereco" placeholder="Seu endereço...." value="blablablabla">
+        <input class="validacao" id="cidade" type="text" name="Cidade" placeholder="Sua cidade...." value="sumare">
+        <input class="validacao" id="UF" type="text" name="Estado" placeholder="Seu Estado...." value="SP">
+        <input class="validacao" id="Num" type="text" name="Numero" placeholder="Digite o Nº..." value="394">
+        <input class="validacao" id="Email" type="email" name="Email" placeholder="Seu e-mail" autocomplete="email" value="blebleble@gmail.com" required maxlength="60">
+        <input class="validacao" type="password" name="Senha" placeholder="Digite sua senha" value="Willian">
+        <input type="file" name="foto" accept=".jpg, .jpeg, .png, .gif" required>
+        <input type="submit" onclick=Enviar() name="enviar-formulario" value="Enviar">
+        <label id="relogio" style="font-size: 23px;"></label>
     </form>
-
+    
     <script src="jquery-3.6.2.js"></script>
     <script>
 
@@ -82,8 +86,8 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
         const extensao = arquivo.name.split(".").pop();
          if (formatosPermitidos.includes(extensao)) {
         }
-        //Validação dos inputs
-        const validar = document.querySelectorAll(".validacao");
+         //Validação dos inputs
+        const validar = document.getElementsByClassName("validacao");
         const values = [];
         for (let i = 0; i < validar.length; i++) {
         if (validar[i].value) {
@@ -94,10 +98,13 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
         const date = new Date();
         // alert("Todos os campos estão preenchidos" + "\nData e hora: " + date.toLocaleString());
         console.log("Dados salvos em: " + "\n" + values + "\n" + "\nData e Hora: " + date.toLocaleString())
-        mostrarHora()
-}
-});
 
+        mostrarHora()
+      };
+        
+})
+
+     
 //Horario no form
 const dozeHoras = 12;
 
@@ -135,9 +142,27 @@ const clock = function() {
   relogio.innerText = montar_relogio;
 };
 
-const Enviar = function() {
-    
-};
+
+const pesquisar = document.getElementById('pesquise');
+const icon = document.getElementById('icon');
+
+icon.addEventListener('click', function() {
+  const pesquisa = pesquisar.value;
+  const validarCPF = document.getElementById('cpf')
+  const validarRG = document.getElementById('RG')
+  const validarNome = document.getElementById('Nome')
+  
+  if (pesquisa && (validarCPF || validarRG || validarNome)) {
+    console.log("Os dados encontrados foram:", pesquisa);
+    // Código para pesquisar no banco de dados e exibir os resultados.
+  } else {
+    console.log("Realizar nova busca");
+  }
+});
+
+const Enviar = function(){
+
+}
 
 </script>
     </div>

@@ -28,7 +28,7 @@ main{
 }
 section#login > h1{
     text-align: center;
-    margin-top: 70px;
+    margin-top: 35px;
 
 }
 div#cadastro >#busca{
@@ -47,7 +47,8 @@ section#login{
 
     background-color: white;
     width: 500px;
-    height: 860px;
+    /* height: 865px; */
+    height: 900px;
     border-radius: 20px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.315);
 
@@ -67,7 +68,6 @@ section#login > div#cadastro > p {
     font-size: 17px;
     margin: 1.5px;
     border: black ;
-    margin-top: 0px;
 }
 
 section#login > div#cadastro > form{
@@ -87,10 +87,31 @@ section#login > div#campos{
     background-size: cover;
     padding: 1px;
     margin-top: 10px;
+    margin: 2px;
 }
-section#login > div#campos:hover{
-    background-color: black;
-    border: none;
+
+section#login >input#abrir{
+    height: 35px;
+    width: 340px;
+    text-align: center;
+    font-size: 1em;
+    padding-left: center;
+    background-color: white;
+    color:  #49a09d;
+    border: 1px solid  #70f5f3a1;
+    border-radius: 7px;
+    text-decoration: none;
+    transform: translate(+15%, +120%);
+}
+
+section#login > input#abrir:focus-within{
+    background-color: #64dfdb;
+    border: none
+}
+
+ section#login > input#abrir:hover{
+    background-color: #6facab93;
+    color: black;
 }
 section#login > p{
     font-size: 20px;
@@ -98,17 +119,10 @@ section#login > p{
     margin: 4px;
     background-color: rgba(173, 216, 230, 0.548);
     border: 40px;
-    border-radius: 15px;
+    border-radius: 7px;
     padding: 0px;
-    margin-top: 0px;
+    margin-top: 2px;
     
-}
-
-input{
-    padding: 5px;
-    margin: 10px;
-    margin-left: 0px;
-    width: 100vw;
 }
 
 input{
@@ -118,7 +132,9 @@ input{
     height: 100%;
     border: 0px;
     border-radius: 8px;
-    padding: 2px;
+    padding: 5px;
+    margin: 9px;
+    margin-left: 0px;
     transform: translateY(-12.5px);
     
 }
@@ -129,16 +145,10 @@ input#pesquise{
     padding: 7px;
     margin: 14px;
     margin-left: 0px;
-    margin-top: 15px;
-    width: calc(100% - 0px); 
+    width: calc(80% - 0px); 
     transform: translateY(-12.5px);
     box-shadow: 0px 0px 5px black;
     
-}
-
-input#Salvar{
-    display: block;
-    text-align: center;
 }
 
 input:focus-within{
@@ -146,24 +156,25 @@ input:focus-within{
     border: none;
 }
 
-
-/* form > a.botao{
-    display: block;
-    text-align: center;
-    font-size: 1em;
-    width: 100%;
-    height: 40px;
-    padding-top: 5px;
-    margin-top: 5px;
-    background-color: white;
-    color:  #49a09d;
-    border: 1px solid  #70f5f3a1;
-    border-radius: 7px;
-    text-decoration: none;
-}
 form > a.botao:hover{
     background-color: #608b8a;
 }
-form > a.botao > i{
-    font-size: 0.8em;
-} */
+
+section#login > div#cadastro > #icon {
+    font-size: larger;
+    font-size: 30px;
+    background-color: lightblue;
+    color: rgba(0, 0, 0, 0.582) !important;
+    border: 1px  solid rgba(97, 97, 97, 0.637);
+    border-radius: 6px;
+    padding: 16px;
+    margin: 7px;
+    padding-top: 5px;
+    height: 37px;
+    transform: translate(-35%, -15%);
+}
+section#login > div#cadastro > #icon:hover{
+    background-color: darkgray;
+    color: black !important;
+}
+ 

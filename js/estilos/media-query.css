@@ -7,10 +7,9 @@
 
     section#login{
         width: 992px;
-        height: 730px;
-
+        height: 810px;
     }
-
+    
     section#login > div#campos{
         float: right;
         width: 35%;
@@ -20,11 +19,15 @@
         margin-top: 280px;
         
     }
+    section#login > input#abrir{
+        transform: translate(+140%, +1070%);
+        margin-left: 113px;
+    }
     section#login > h1{
-        margin-top: 0px;
-        margin-bottom: 0px;
+        margin-top: -50px;
         font-size: 30px;
-        text-align: center center;
+        text-align: center;
+        margin-bottom: 35px;
        
     }
         input{
@@ -45,11 +48,14 @@
     }
     
     section#login > p {
-        transform: translate(+300%, +1000%);
+        transform: translate(+171%, +1000%);
+        
         font-size: 20px;
-        border: 40px;
-        width: 210px;
-        border-radius: 15px;   
+        border: 21px;
+        width: 340px;
+        border-radius: 5px;   
+    }
+    section#login > div#cadastro > i#icon{
+        transform: translate(-40%, -15%);
     }
 }
-
