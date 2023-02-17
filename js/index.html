@@ -61,6 +61,7 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
           <div class="btn-list">
             <input id="enviar" type="submit" name="enviar-formulario" value="Enviar">
             <input id="editar" onclick=editar() type="button" value="Editar">
+            <input id="atualizar" type="button" name="atualizar" value="Atualizar">
           </div>
           <p id="relogio" style="font-size: 18px;"></p>
 
@@ -239,21 +240,65 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
               data:{pesquisa:valorProcurado},
               success:function(retorno){
                 let dados = JSON.parse(retorno)
-                console.log(dados)
-                document.getElementById('Nome').value = dados.NOME
-                document.getElementById('cpf').value = dados.CPF
-                document.getElementById('RG').value = dados.RG
-                document.getElementById('Cep').value = dados.CEP
-                document.getElementById('End').value = dados.END
-                document.getElementById('cidade').value = dados.CIDADE
-                document.getElementById('UF').value = dados.UF
-                document.getElementById('Num').value = dados.NUM
-                document.getElementById('Email').value = dados.LOGIN
-                document.getElementById('senha').value = dados.Senha
-                document.getElementsById('foto').value = dados.FOTO
+                if(dados){
+                document.getElementById('Nome').value = dados.NOME;
+                document.getElementById('cpf').value = dados.CPF;
+                document.getElementById('RG').value = dados.RG;
+                document.getElementById('Cep').value = dados.CEP;
+                document.getElementById('End').value = dados.END;
+                document.getElementById('cidade').value = dados.CIDADE;
+                document.getElementById('UF').value = dados.UF;
+                document.getElementById('Num').value = dados.NUM;
+                document.getElementById('Email').value = dados.LOGIN;
+                document.getElementById('senha').value = dados.Senha;
+                // document.getElementsById('foto').value = dados.FOTO;
+                }else{
+                  alert("Nenhum dado encontrado, realize seu cadastro!!")
+                }
               }
+
             })
           })
+          $(document).on('click', "#atualizar", function(){
+        
+              let nome = document.getElementById('Nome').value;
+              let cpf = document.getElementById('cpf').value;
+              let rg = document.getElementById('RG').value
+              let cep = document.getElementById('Cep').value;
+              let endereco = document.getElementById('End').value;
+              let cidade = document.getElementById('cidade').value;
+              let uf = document.getElementById('UF').value
+              let numero = document.getElementById('Num').value;
+              let email = document.getElementById('Email').value;
+              let senha = document.getElementById('senha').value;
+              let foto = document.getElementById('foto').value;
+
+    
+    $.ajax({
+        url: "update.php",
+        method: "POST",
+        data: {
+            nome: nome,
+            cpf: cpf,
+            rg: rg,
+            cep: cep,
+            endereco: endereco,
+            cidade: cidade,
+            uf: uf,
+            numero: numero,
+            email: email,
+            senha: senha,
+            foto: foto
+        },
+        success:function(retorno){
+            alert("Dados atualizados com sucesso!");
+        },
+        error:function(){
+            alert("Ocorreu um erro ao atualizar os dados.");
+        }
+    });
+});
+
 
         </script>
       </div>
