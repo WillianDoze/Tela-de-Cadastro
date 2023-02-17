@@ -191,16 +191,15 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
             
           }
 
-          const pesquisar = document.getElementById('pesquisa');
           const edicao = document.getElementById('editar')
 
             function icon() {
-            const pesquisa = pesquisar.value;
+            const pesquisar = document.getElementById('pesquisa').value;
             const validarCPF = document.getElementById('cpf')
             const validarRG = document.getElementById('RG')
             const validarNome = document.getElementById('Nome')
 
-            if (pesquisa && (validarCPF || validarRG || validarNome)) {
+            if (pesquisar && (validarCPF || validarRG || validarNome)) {
 
               edicao.style.display = "block";
 

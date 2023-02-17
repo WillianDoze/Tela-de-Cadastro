@@ -154,7 +154,7 @@ input:hover{
     background-color:rgb(142, 177, 189) ;
 
 }
-input#pesquisa{
+section#login > div#cadastro > #pesquisa{
     margin-top: 25px;
     background-color: lightblue;
     color: black;
