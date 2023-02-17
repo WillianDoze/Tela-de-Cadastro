@@ -31,13 +31,6 @@ section#login > h1{
     margin-top: 35px;
 
 }
-div#cadastro >#busca{
-    text-align: center;
-    font-size: 18px;
-    margin: 8px;
-    margin-left: 0px;
-    padding: 0px;
-}
 
 section#login{
     position: absolute;
@@ -47,8 +40,7 @@ section#login{
 
     background-color: white;
     width: 500px;
-    /* height: 865px; */
-    height: 900px;
+    height: 870px;
     border-radius: 20px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.315);
 
@@ -97,7 +89,7 @@ section#login >input#abrir{
     font-size: 1em;
     padding-left: center;
     background-color: white;
-    color:  #49a09d;
+    color:  black;
     border: 1px solid  #70f5f3a1;
     border-radius: 7px;
     text-decoration: none;
@@ -105,7 +97,7 @@ section#login >input#abrir{
 }
 
 section#login > input#abrir:focus-within{
-    background-color: #64dfdb;
+    background-color: lightblue;
     border: none
 }
 
@@ -137,17 +129,32 @@ input{
     border: 0px;
     border-radius: 8px;
     padding: 5px;
-    margin: 9px;
+    margin:9px 0px;
     margin-left: 0px;
     box-shadow: 0px 0px 5px black;
     transform: translateY(-12.5px);
     
 }
+
+
+#editar{
+    display: none;
+  
+
+}
+section#login > div#cadastro > #form1 > #relogio{
+ text-align: left;
+ margin-left: 140px;
+ box-shadow: 0px 0px 1px black;
+ border: 0px;
+ border-radius: 3px;
+ width: 200px;
+}
 input:hover{
     background-color:rgb(142, 177, 189) ;
 
 }
-input#pesquise{
+input#pesquisa{
     margin-top: 25px;
     background-color: lightblue;
     color: black;
@@ -182,5 +189,15 @@ section#login > div#cadastro > #icon {
 section#login > div#cadastro > #icon:hover{
     background-color: darkgray;
     color: black !important;
+}
+
+.btn-list{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 9px;
+    
 }
  

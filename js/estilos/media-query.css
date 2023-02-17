@@ -7,7 +7,7 @@
 
     section#login{
         width: 992px;
-        height: 810px;
+        height: 800px;
     }
     
     section#login > div#campos{
@@ -55,7 +55,7 @@
         width: 340px;
         border-radius: 5px;   
     }
-    section#login > div#cadastro > i#icon{
+    section#login > div#cadastro > #icon{
         transform: translate(-40%, -15%);
     }
 }
