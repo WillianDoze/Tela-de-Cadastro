@@ -44,20 +44,30 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
 
         <form id="form1" action="login.php" method="POST" enctype="multipart/form-data" autocomplete="on">
 
-          <input class="validacao" id="Nome" type="text" name="nome" placeholder="Digite seu nome..." contenteditable="false" required>
+          <input class="validacao" id="Nome" type="text" name="nome" placeholder="Digite seu nome..."
+            contenteditable="false" required>
           <input class="validacao" id="cpf" type="text" name="CPF"
-          placeholder="Digite o número do seu CPF utilizando:XXX.XXX.XXX-XX" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
-          contenteditable="false" required>
-          <input class="validacao" id="RG" type="text" name="RG" placeholder="Número do seu RG...." contenteditable="false" required>
-          <input class="validacao" id="Cep" type="text" name="CEP" placeholder="Digite o seu CEP...." contenteditable="false" required>
-          <input class="validacao" id="End" type="text" name="Endereco" placeholder="Seu endereço...."contenteditable="false">
-          <input class="validacao" id="cidade" type="text" name="Cidade" placeholder="Sua cidade...." contenteditable="false">
-          <input class="validacao" id="UF" type="text" name="Estado" placeholder="Seu Estado...." contenteditable="false">
-          <input class="validacao" id="Num" type="text" name="Numero" placeholder="Digite o Nº...." contenteditable="false">
+            placeholder="Digite o número do seu CPF utilizando:XXX.XXX.XXX-XX" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
+            contenteditable="false" required>
+          <input class="validacao" id="RG" type="text" name="RG" placeholder="Número do seu RG...."
+            contenteditable="false" required>
+          <input class="validacao" id="Cep" type="text" name="CEP" placeholder="Digite o seu CEP...."
+            contenteditable="false" required>
+          <input class="validacao" id="End" type="text" name="Endereco" placeholder="Seu endereço...."
+            contenteditable="false">
+          <input class="validacao" id="cidade" type="text" name="Cidade" placeholder="Sua cidade...."
+            contenteditable="false">
+          <input class="validacao" id="UF" type="text" name="Estado" placeholder="Seu Estado...."
+            contenteditable="false">
+          <input class="validacao" id="Num" type="text" name="Numero" placeholder="Digite o Nº...."
+            contenteditable="false">
           <input class="validacao" id="Email" type="email" name="Email" placeholder="Seu e-mail...."
-          autocomplete="email" required maxlength="60" contenteditable="false">
-          <input id="senha" class="validacao" type="password" name="Senha" placeholder="Cadastre-se sua senha com máximo 20 caracteres...." required maxlength="20" contenteditable="false">
-          <input id="foto" class="validacao" type="file" name="foto" accept=".jpg, .jpeg, .png, .gif" contenteditable="false" required>
+            autocomplete="email" required maxlength="60" contenteditable="false">
+          <input id="senha" class="validacao" type="password" name="Senha"
+            placeholder="Cadastre-se sua senha com máximo 20 caracteres...." required maxlength="20"
+            contenteditable="false">
+          <input id="foto" class="validacao" type="file" name="foto" accept=".jpg, .jpeg, .png, .gif"
+            contenteditable="false" required>
           <div class="btn-list">
             <input id="enviar" type="submit" name="enviar-formulario" value="Enviar">
             <input id="editar" onclick=editar() type="button" value="Editar">
@@ -99,7 +109,7 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
           form.addEventListener("submit", function (event) {
             event.preventDefault();
 
-            edicao.style.display="none"
+            atualizar.style.display = "none";
 
             const formatosPermitidos = ["png", "jpeg", "jpg", "gif"];
             const arquivo = document.querySelector('input[type="file"]').files[0];
@@ -121,7 +131,7 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
             if (values.length === validar.length) {
               const date = new Date();
               // alert("Todos os campos estão preenchidos" + "\nData e hora: " + date.toLocaleString());
-              console.log("Dados salvos em: " + "\n" + values + "\n" + "\nData e Hora: " + date.toLocaleString())
+              // console.log("Dados salvos em: " + "\n" + values + "\n" + "\nData e Hora: " + date.toLocaleString())
               mostrarHora()
 
 
@@ -146,7 +156,7 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
                 }
               })
             };
-              
+
           })
 
 
@@ -186,15 +196,15 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
             relogio.innerText = montar_relogio;
           };
 
-          function editar(){
+          function editar() {
             const edit = document.getElementsByClassName('validacao');
             edit.contentEditable = true;
-            
+
           }
 
           const edicao = document.getElementById('editar')
 
-            function icon() {
+          function icon() {
             const pesquisar = document.getElementById('pesquisa').value;
             const validarCPF = document.getElementById('cpf')
             const validarRG = document.getElementById('RG')
@@ -203,9 +213,10 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
             if (pesquisar && (validarCPF || validarRG || validarNome)) {
 
               edicao.style.display = "block";
+              atualizar.style.display = "block";
 
             } else {
-              console.log("Realizar nova busca");
+              alert("Realizar nova busca");
             }
           };
 
@@ -232,73 +243,57 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
               }
             }
           });
-          $(document).on('click', "#icon", function(){
+          $(document).on('click', "#icon", function () {
             let valorProcurado = document.getElementById('pesquisa').value
             $.ajax({
               url: "pesquisa.php",
               method: "POST",
-              data:{pesquisa:valorProcurado},
-              success:function(retorno){
+              data: { pesquisa: valorProcurado },
+              success: function (retorno) {
                 let dados = JSON.parse(retorno)
-                if(dados){
-                document.getElementById('Nome').value = dados.NOME;
-                document.getElementById('cpf').value = dados.CPF;
-                document.getElementById('RG').value = dados.RG;
-                document.getElementById('Cep').value = dados.CEP;
-                document.getElementById('End').value = dados.END;
-                document.getElementById('cidade').value = dados.CIDADE;
-                document.getElementById('UF').value = dados.UF;
-                document.getElementById('Num').value = dados.NUM;
-                document.getElementById('Email').value = dados.LOGIN;
-                document.getElementById('senha').value = dados.Senha;
-                // document.getElementsById('foto').value = dados.FOTO;
-                }else{
+                if (dados) {
+                  document.getElementById('Nome').value = dados.NOME;
+                  document.getElementById('cpf').value = dados.CPF;
+                  document.getElementById('RG').value = dados.RG;
+                  document.getElementById('Cep').value = dados.CEP;
+                  document.getElementById('End').value = dados.END;
+                  document.getElementById('cidade').value = dados.CIDADE;
+                  document.getElementById('UF').value = dados.UF;
+                  document.getElementById('Num').value = dados.NUM;
+                  document.getElementById('Email').value = dados.LOGIN;
+                  document.getElementById('senha').value = dados.Senha;
+                  // document.getElementsById('foto').value = dados.FOTO;
+                } else {
                   alert("Nenhum dado encontrado, realize seu cadastro!!")
                 }
               }
 
             })
           })
-          $(document).on('click', "#atualizar", function(){
-        
-              let nome = document.getElementById('Nome').value;
-              let cpf = document.getElementById('cpf').value;
-              let rg = document.getElementById('RG').value
-              let cep = document.getElementById('Cep').value;
-              let endereco = document.getElementById('End').value;
-              let cidade = document.getElementById('cidade').value;
-              let uf = document.getElementById('UF').value
-              let numero = document.getElementById('Num').value;
-              let email = document.getElementById('Email').value;
-              let senha = document.getElementById('senha').value;
-              let foto = document.getElementById('foto').value;
-
-    
-    $.ajax({
-        url: "update.php",
-        method: "POST",
-        data: {
-            nome: nome,
-            cpf: cpf,
-            rg: rg,
-            cep: cep,
-            endereco: endereco,
-            cidade: cidade,
-            uf: uf,
-            numero: numero,
-            email: email,
-            senha: senha,
-            foto: foto
-        },
-        success:function(retorno){
-            alert("Dados atualizados com sucesso!");
-        },
-        error:function(){
-            alert("Ocorreu um erro ao atualizar os dados.");
-        }
-    });
-});
-
+          // $(document).on('click', '#atualizar', function () {
+          //   let FD = new FormData();
+          //   let inputs = form2.children();
+          //     for (let element of inputs) {
+          //       if (element.classList.contains("validacao")) {
+          //         FD.append(element.name, element.value)
+          //       }
+          //     }
+          
+          //   $.ajax({
+          //     url: 'update.php',
+          //     method: 'POST',
+          //     data: FD,
+          //     contentType: false,
+          //     processData: false,
+          //     success: function (response) {
+          //       alert("Dados atualizados com sucesso.")
+          //       location.reload()
+          //     },
+          //     error: function (jqXHR, textStatus, errorThrown) {
+          //       alert("Ocorreu um erro.")
+          //     }
+          //   })
+          // });
 
         </script>
       </div>
