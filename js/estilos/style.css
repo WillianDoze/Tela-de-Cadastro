@@ -142,9 +142,11 @@ input{
   
 
 }
+
 #atualizar{
     display: none;
 }
+
 section#login > div#cadastro > #form1 > #relogio{
  text-align: left;
  margin-left: 140px;
