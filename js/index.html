@@ -34,17 +34,19 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
         <input class="administrador" type="password" name="isenha" id="isenha" placeholder="Sua senha"
           autocomplete="current-password" required="" minlength="8" maxlength="20">
       </div>
-      <input id="abrir" type="button" value="Entrar">
 
+      <input  id="abrir" type="button" value="Entrar">
+
+ 
       <h1>Cadastro de Clientes</h1>
       <div id="cadastro">
         <p><b><i>Cadastre-se ou realize a busca!!</i></b></p>
-        <input id="pesquisa" type="text" name="pesquisa" placeholder="Pesquise pelos seguintes metódos: Nome, RG e CPF">
+        <input id="pesquisa" type="text" name="pesquisa" placeholder="Pesquise por: Nome completo, RG e CPF">
         <i id="icon" onclick=icon() class="fa-solid fa-magnifying-glass-plus"></i>
 
         <form id="form1" action="login.php" method="POST" enctype="multipart/form-data" autocomplete="on">
 
-          <input class="validacao" id="Nome" type="text" name="nome" placeholder="Digite seu nome..."
+          <input class="validacao" id="Nome" type="text" name="nome" placeholder="Digite seu nome completo..."
             contenteditable="false" required>
           <input class="validacao" id="cpf" type="text" name="CPF"
             placeholder="Digite o número do seu CPF utilizando:XXX.XXX.XXX-XX" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
@@ -70,13 +72,13 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
             contenteditable="false" required>
           <div class="btn-list">
             <input id="enviar" type="submit" name="enviar-formulario" value="Enviar">
-            <input id="editar" onclick=editar() type="button" value="Editar">
-            <input id="atualizar" type="button" name="atualizar" value="Atualizar">
+            <input id="Editar" style="display: none;" onclick=editar() type="button" value="Editar">
+            <input id="Atualizar" style="display: none" type="button" name="atualizar" value="Atualizar">
           </div>
           <p id="relogio" style="font-size: 18px;"></p>
 
         </form>
-
+        <input id="unico" type="hidden">
         <script src="jquery-3.6.2.js"></script>
         <script>
 
@@ -109,8 +111,6 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
           form.addEventListener("submit", function (event) {
             event.preventDefault();
 
-            atualizar.style.display = "none";
-
             const formatosPermitidos = ["png", "jpeg", "jpg", "gif"];
             const arquivo = document.querySelector('input[type="file"]').files[0];
             const extensao = arquivo.name.split(".").pop();
@@ -137,7 +137,6 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
 
               let fd = new FormData();
               fd.append("foto", arquivo);
-
               let inputs = form2.children();
               for (let element of inputs) {
                 if (element.classList.contains("validacao")) {
@@ -203,7 +202,6 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
           }
 
           const edicao = document.getElementById('editar')
-
           function icon() {
             const pesquisar = document.getElementById('pesquisa').value;
             const validarCPF = document.getElementById('cpf')
@@ -211,8 +209,6 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
             const validarNome = document.getElementById('Nome')
 
             if (pesquisar && (validarCPF || validarRG || validarNome)) {
-
-              edicao.style.display = "block";
 
 
             } else {
@@ -243,8 +239,10 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
               }
             }
           });
+
           $(document).on('click', "#icon", function () {
             let valorProcurado = document.getElementById('pesquisa').value
+            let files = document.getElementById('foto');
             $.ajax({
               url: "pesquisa.php",
               method: "POST",
@@ -252,6 +250,7 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
               success: function (retorno) {
                 let dados = JSON.parse(retorno)
                 if (dados) {
+
                   document.getElementById('Nome').value = dados.NOME;
                   document.getElementById('cpf').value = dados.CPF;
                   document.getElementById('RG').value = dados.RG;
@@ -262,38 +261,60 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
                   document.getElementById('Num').value = dados.NUM;
                   document.getElementById('Email').value = dados.LOGIN;
                   document.getElementById('senha').value = dados.Senha;
-                  // document.getElementsById('foto').value = dados.FOTO;
+                  // document.getElementById('foto').value = files['foto']['name']
+                  document.getElementById('unico').value = dados.ID;
+                  
+                  Atualizar.style.display = "block"
+                  Editar.style.display = "block"
                 } else {
+                  Editar.style.display = "none"
                   alert("Nenhum dado encontrado, realize seu cadastro!!")
                 }
               }
 
             })
           })
-          // $(document).on('click', '#atualizar', function () {
-          //   let FD = new FormData();
-          //   let inputs = form2.children();
-          //     for (let element of inputs) {
-          //       if (element.classList.contains("validacao")) {
-          //         FD.append(element.name, element.value)
-          //       }
-          //     }
-          
-          //   $.ajax({
-          //     url: 'update.php',
-          //     method: 'POST',
-          //     data: FD,
-          //     contentType: false,
-          //     processData: false,
-          //     success: function (response) {
-          //       alert("Dados atualizados com sucesso.")
-          //       location.reload()
-          //     },
-          //     error: function (jqXHR, textStatus, errorThrown) {
-          //       alert("Ocorreu um erro.")
-          //     }
-          //   })
-          // });
+          $(document).on('click', '#Atualizar', function () {
+            let nome = $('#Nome').val();
+            let cpf = $('#cpf').val();
+            let rg = $('#RG').val();
+            let cep = $('#Cep').val();
+            let ende = $('#End').val();
+            let cidade = $('#cidade').val();
+            let estado = $('#UF').val();
+            let numero = $('#Num').val();
+            let email = $('#Email').val();
+            let senha = $('#senha').val();
+            let foto = $('foto').val();
+            let ID = $('#unico').val();
+
+            $.ajax({
+            
+              url: 'update.php',
+              method: 'POST',
+              data: {
+              nome: nome,
+              cpf: cpf,
+              RG: rg,
+              CEP: cep,
+              Endereco: ende,
+              Cidade: cidade,
+              Estado: estado,
+              Numero: numero,
+              Email: email,
+              Senha: senha,
+              foto: foto,
+              ID: ID
+              },
+              success: function (response) {
+                alert("Dados atualizados com sucesso.")
+                location.reload()
+              },
+              error: function (jqXHR, textStatus, errorThrown) {
+                alert("Ocorreu um erro.")
+              }
+            })
+          });
 
         </script>
       </div>
