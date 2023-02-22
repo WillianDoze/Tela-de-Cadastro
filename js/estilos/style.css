@@ -32,7 +32,7 @@ section#login{
     top: 40%;
     left: 50%;
     overflow: auto;
-    overflow-y: 0px ;
+    
     background-color: white;
     width: 500px;
     height: 770px;
@@ -58,7 +58,7 @@ section#login > div#cadastro > p {
 }
 
 section#login > div#cadastro > form{
-    
+
     background-color: white;
     display: block;
     width: 100%;
