@@ -32,8 +32,8 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
         <input class="administrador" id="ilogin" type="email" name="logar" placeholder="Seu e-mail"
           autocomplete="email" required maxlength="60"><br>
         <input class="administrador" type="password" name="acesso" id="isenha" placeholder="Sua senha"
-          autocomplete="current-password" required="" minlength="8" maxlength="20">
-        <!-- <input id="unico1" type="hidden"> -->
+          autocomplete="current-password" required minlength="8" maxlength="20">
+        <input id="unico1" type="hidden">
         <p id="erro" type="hidde"></p>
       </div>
 
@@ -203,23 +203,8 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
 
           }
 
-          const edicao = document.getElementById('editar')
-          function icon() {
-            const pesquisar = document.getElementById('pesquisa').value;
-            const validarCPF = document.getElementById('cpf')
-            const validarRG = document.getElementById('RG')
-            const validarNome = document.getElementById('Nome')
-
-            if (pesquisar && (validarCPF || validarRG || validarNome)) {
-
-
-            } else {
-              alert("Realizar nova busca");
-            }
-          };
-
           const abrir = document.getElementById('abrir');
-
+          
           abrir.addEventListener('click', function () {
             const regex = /^[a-zA-Z0-9._@-]+$/;
             let login = document.getElementById('ilogin').value;
@@ -228,7 +213,7 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
 
 
             if (login && senha) {
-              if (regex.test(login) && regex.test(senha)) {
+              if (!!regex.test(login) && !!regex.test(senha)) {
                 const campos = $("#campos")
                 let FD = new FormData();
                 FD.append("campos", campos);
@@ -252,6 +237,10 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
                 }
                 console.log("Campos válidos, login aceito");
                 console.log(login, "\n" + senha);
+
+              }else{
+
+              alert("Campos invalidos, caracteres permitidos apenas: . _ @ -")
 
               }
             }

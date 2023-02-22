@@ -1,26 +1,18 @@
 <?php
-// require_once("conexao.php");
+require_once("conexao.php");
 
-// $login = $_POST['ilogin'];
-// $senha = $_POST['isenha'];
-// $ID = $_POST['ID'];
+$login = $_POST['logar'];
+$password = $_POST['acesso'];
 
-// $sqlquery = "INSERT INTO administrator VALUES
-//     ('$_POST[ilogin]', '$_POST[isenha]', '$_POST[ID]'";
+ $sqlquery = "INSERT INTO administrator VALUES
+ EmailAdm = '$login', SenhaADM = '$password'";
 
-// if ($conn->query($sqlquery) === TRUE) {
-//     echo "record inserted successfully";
-// } else {
-//     echo "Error: " . $sqlquery . "<br>" . $conn->error;
-// }
+if ($conn->query($sqlquery) === TRUE) {
+  echo "record inserted successfully";
+} else {
+  echo "Error: " . $sqlquery . "<br>" . $conn->error;
+}
 
-
-// // Closing the connection.
-// $conn->close();
- // login.php
- $acessar = $_POST['login'];
- $password = $_POST['senha'];
- 
  // Verifica se o usuário existe no banco de dados e se a senha está correta
  if (verificar_credenciais($acessar, $password)) {
    // Iniciar uma sessão para o usuário
@@ -38,5 +30,8 @@
  function verificar_credenciais($acessar, $password) {
    // Substitua esta função pela sua própria lógica de verificação de credenciais
    // Aqui está um exemplo simples que verifica se o usuário e a senha são iguais a "admin"
-   return $acessar === 'admin' && $password === 'admin';
+   return $acessar === 'wfdirceu@gmail.com' && $password === 'senha@123';
  }
+ // Closing the connection.
+$conn->close();
+?>
