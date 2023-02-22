@@ -6,8 +6,11 @@
     }
 
     section#login{
+        top: 50%;
+        bottom: 50%;
         width: 992px;
-        height: 800px;
+        height: 790px;
+        overflow: hidden;
     }
     
     section#login > div#campos{
