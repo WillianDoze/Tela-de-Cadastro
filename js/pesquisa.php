@@ -6,6 +6,7 @@ if(!isset($valorProcurado) || empty($valorProcurado)) return json_encode(["Erro"
 
 $sqlquery = "SELECT *  FROM clientes WHERE NOME = '$valorProcurado' or CPF = '$valorProcurado' or RG = '$valorProcurado'";
 
+
 if ($conn->query($sqlquery)) {
     $result = $conn->query($sqlquery);
     $dados = $result->fetch_assoc();

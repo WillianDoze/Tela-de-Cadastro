@@ -3,6 +3,7 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "cadastro_cliente";
+
  
 // Create connection
 $conn = new mysqli($servername,

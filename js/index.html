@@ -29,15 +29,18 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
     <section id="login">
       <p style="text-align: center;">Acesso administrador</p>
       <div id="campos">
-        <input class="administrador" id="ilogin" type="email" name="ilogin" placeholder="Seu e-mail"
+        <input class="administrador" id="ilogin" type="email" name="logar" placeholder="Seu e-mail"
           autocomplete="email" required maxlength="60"><br>
-        <input class="administrador" type="password" name="isenha" id="isenha" placeholder="Sua senha"
+        <input class="administrador" type="password" name="acesso" id="isenha" placeholder="Sua senha"
           autocomplete="current-password" required="" minlength="8" maxlength="20">
+        <input id="unico1" type="hidden">
+        <p id="erro" type="hidde"></p>
       </div>
 
-      <input  id="abrir" type="button" value="Entrar">
 
- 
+      <input id="abrir"  type="button" value="Entrar">
+
+
       <h1>Cadastro de Clientes</h1>
       <div id="cadastro">
         <p><b><i>Cadastre-se ou realize a busca!!</i></b></p>
@@ -71,7 +74,7 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
           <input id="foto" class="validacao" type="file" name="foto" accept=".jpg, .jpeg, .png, .gif"
             contenteditable="false" required>
           <div class="btn-list">
-            <input id="enviar" type="submit" name="enviar-formulario" value="Enviar">
+            <input id="enviar" style="display: block;" type="submit" name="enviar-formulario" value="Enviar">
             <input id="Editar" style="display: none;" onclick=editar() type="button" value="Editar">
             <input id="Atualizar" style="display: none" type="button" name="atualizar" value="Atualizar">
           </div>
@@ -158,7 +161,6 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
 
           })
 
-
           //Horario no form
 
           const mostrarHora = function () {
@@ -220,29 +222,44 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
 
           abrir.addEventListener('click', function () {
             const regex = /^[a-zA-Z0-9._@-]+$/;
+            let login = document.getElementById('ilogin').value;
+            let senha = document.getElementById('isenha').value
+            let ID = document.getElementById('unico1').value
 
-            const acesso = document.getElementById('ilogin').value;
-            const senha = document.getElementById('isenha').value
 
-            //const validarCPF = document.getElementById('cpf')
-            // const validarRG = true; // Substitua com a validação do RG
-            // const validarNome = true; // Substitua com a validação do nome
+            if (login && senha) {
+              if (regex.test(login) && regex.test(senha)) {
+                const campos = $("#campos")
+                let FD = new FormData();
+                FD.append("campos", campos);
+                let inputs = campos.children();
+                for (let element of inputs) {
+                  if (element.classList.contains("administrator")) {
+                    FD.append(element.name, element.value)
+                  }
+                  $.ajax({
+                    url: "admin.php",
+                    method: "POST",
+                    data: FD,
+                    contentType: false,
+                    processData: false,
+                    success: function () {
+                      location.reload()
+                    }
 
-            if (acesso && senha) {
-              if (regex.test(acesso) && regex.test(senha)) {
+                  })
+
+                }
                 console.log("Campos válidos, login aceito");
-                location.reload()
+                console.log(login, "\n" + senha);
 
-              } else {
-                alert("Os campos de login e senha contêm caracteres inválidos");
-                alert("Preencha  os campos, usando números, letras e apenas caracteres especiais: '. _ @ -'");
               }
             }
-          });
+
+          })
 
           $(document).on('click', "#icon", function () {
             let valorProcurado = document.getElementById('pesquisa').value
-            let files = document.getElementById('foto');
             $.ajax({
               url: "pesquisa.php",
               method: "POST",
@@ -250,6 +267,7 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
               success: function (retorno) {
                 let dados = JSON.parse(retorno)
                 if (dados) {
+                  console.log(dados);
 
                   document.getElementById('Nome').value = dados.NOME;
                   document.getElementById('cpf').value = dados.CPF;
@@ -261,11 +279,12 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
                   document.getElementById('Num').value = dados.NUM;
                   document.getElementById('Email').value = dados.LOGIN;
                   document.getElementById('senha').value = dados.Senha;
-                  // document.getElementById('foto').value = files['foto']['name']
+                  document.getElementById('foto').value = dados.FOTO
                   document.getElementById('unico').value = dados.ID;
-                  
-                  Atualizar.style.display = "block"
-                  Editar.style.display = "block"
+
+                  Atualizar.style.display = "block";
+                  Editar.style.display = "block";
+                  enviar.style.display = "none";
                 } else {
                   Editar.style.display = "none"
                   alert("Nenhum dado encontrado, realize seu cadastro!!")
@@ -274,7 +293,9 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
 
             })
           })
+
           $(document).on('click', '#Atualizar', function () {
+
             let nome = $('#Nome').val();
             let cpf = $('#cpf').val();
             let rg = $('#RG').val();
@@ -285,26 +306,26 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
             let numero = $('#Num').val();
             let email = $('#Email').val();
             let senha = $('#senha').val();
-            let foto = $('foto').val();
+            let foto = $('#foto').val();
             let ID = $('#unico').val();
 
             $.ajax({
-            
+
               url: 'update.php',
               method: 'POST',
               data: {
-              nome: nome,
-              cpf: cpf,
-              RG: rg,
-              CEP: cep,
-              Endereco: ende,
-              Cidade: cidade,
-              Estado: estado,
-              Numero: numero,
-              Email: email,
-              Senha: senha,
-              foto: foto,
-              ID: ID
+                nome: nome,
+                cpf: cpf,
+                RG: rg,
+                CEP: cep,
+                Endereco: ende,
+                Cidade: cidade,
+                Estado: estado,
+                Numero: numero,
+                Email: email,
+                Senha: senha,
+                foto: foto,
+                ID: ID
               },
               success: function (response) {
                 alert("Dados atualizados com sucesso.")
