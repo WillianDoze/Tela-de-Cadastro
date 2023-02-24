@@ -44,7 +44,7 @@ session_start();
       <div id="cadastro">
         <p><b><i>Cadastre-se ou realize a busca!!</i></b></p>
         <input id="pesquisa" type="text" name="pesquisa" placeholder="Pesquise por: Nome completo, RG ou CPF">
-        <i id="icon" onclick="icon()" class="fa-solid fa-magnifying-glass-plus"></i>
+        <i id="icon" class="fa-solid fa-magnifying-glass-plus"></i>
 
         <form id="form1" action="login.php" method="POST" enctype="multipart/form-data" autocomplete="on">
 
@@ -61,9 +61,10 @@ session_start();
           <input id="foto" class="validacao" type="file" name="foto" accept=".jpg, .jpeg, .png, .gif" contenteditable="false" required>
           <div class="btn-list">
             <input id="enviar" style="display: block;" type="submit" name="enviar-formulario" value="Enviar">
-            <input id="Editar" style="display: block;" onclick=editar() type="button" value="Editar">
-            <input id="Atualizar" style="display: block" type="button" name="atualizar" value="Atualizar">
-            <input id="Apagar" type="button" style="display: block;" name="Apagar" value="Apagar">
+            <input id="Nao" style="display: none;" type="button" value="Não">
+            <input id="Sim" style="display: none;" type="button" value="Sim">
+            <input id="Atualizar" style="display: none" type="button" name="atualizar" value="Atualizar">
+            <input id="Apagar" type="button" style="display: none;" name="Apagar" value="Apagar">
           </div>
           <p id="relogio" style="font-size: 18px;"></p>
 
@@ -197,11 +198,11 @@ session_start();
             relogio.innerText = montar_relogio;
           };
 
-          function editar() {
-            const edit = document.getElementsByClassName('validacao');
-            edit.contentEditable = true;
+          // function editar() {
+          //   const edit = document.getElementsByClassName('validacao');
+          //   edit.contentEditable = true;
 
-          }
+          // }
 
           const abrir = document.getElementById('abrir');
 
@@ -261,8 +262,7 @@ session_start();
               success: function(retorno) {
                 let dados = JSON.parse(retorno)
                 if (dados) {
-                  console.log(dados);
-
+                  icon
                   document.getElementById('Nome').value = dados.NOME;
                   document.getElementById('cpf').value = dados.CPF;
                   document.getElementById('RG').value = dados.RG;
@@ -277,7 +277,6 @@ session_start();
                   document.getElementById('unico').value = dados.ID;
 
                   Atualizar.style.display = "block";
-                  Editar.style.display = "block";
                   enviar.style.display = "none";
                   Apagar.style.display = "block"
                 } else {
@@ -346,9 +345,15 @@ session_start();
                 ID: ID
               },
               success: function(response) {
+                if(response){
+                  alert("Tem certeza que deseja apagar seus dados")
+                  Nao.style.display = "block";
+                  Sim.style.display = "block";
+                }else{
                 alert("Dados apagados com sucesso.")
                 mostrarHora()
                 location.reload()
+                }
               },
               error: function(jqXHR, textStatus, errorThrown) {
                 alert("Ocorreu um erro, tente novamente!")
