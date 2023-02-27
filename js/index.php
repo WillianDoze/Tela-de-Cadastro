@@ -35,7 +35,7 @@ session_start();
 
         <input class="administrador" id="ilogin" type="email" name="logar" placeholder="Seu e-mail. Caracteres especiais apenas . _ @ -" autocomplete="email" required maxlength="60"><br>
         <input class="administrador" type="password" name="acesso" id="isenha" placeholder="Sua senha. Caracteres especiais apenas . _ @ -" autocomplete="current-password" required minlength="8" maxlength="20">
-        <input id="abrir" onclick="abrirModal()" type="button" value="Entrar">
+        <input id="abrir" type="button" value="Entrar">
 
       </div>
       <div id="modal" class="modal">
@@ -96,13 +96,17 @@ session_start();
               })
             })
           });
+          const abrirModal = document.getElementById('abrir')
+          const modal = document.getElementById('modal');
+          const sair = document.getElementById('sair');
 
-          // function abrirModal(){
-          //   modal.style.display = 'block';
-          // }
-          // sair.addEventListener('click', function(){
-          //   modal.style.display = 'none';
-          // })
+          abrirModal.addEventListener('click', function(){
+            modal.style.display = 'block';
+          })
+          
+          sair.addEventListener('click', function(){
+            modal.style.display = 'none';
+          })
 
           // Trecho da validação da foto
           const form = document.querySelector("form");
