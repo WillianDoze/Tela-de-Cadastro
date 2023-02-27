@@ -25,12 +25,13 @@
     section#login > input#abrir{
         transform: translate(+140%, +670%);
         margin-left: 113px;
+        margin-bottom: 0px;
     }
-    section#login > h1{
-        margin-top: 5px;
+    section#login > h1#clientes{
+        margin-top: 0px;
         font-size: 30px;
-        text-align: center center;
-        margin-bottom: 35px;
+        text-align: center;
+        margin-bottom: 15px;
        
     }
         input{

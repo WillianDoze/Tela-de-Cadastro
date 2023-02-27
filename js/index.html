@@ -6,10 +6,10 @@ Nº
 E-mail:
 Envio de arquivo: (pdf, doc, png)
 Gravar a data e hora da inclusão do registro e exibir no form -->
-<!-- <?php
+<?php
 session_start();
 
-?> -->
+?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -28,17 +28,21 @@ session_start();
   <main>
 
     <section id="login">
-      <p id="aparecerAdm" style="display: block;text-align: center">Acesso administrador></p>
-      <!-- <?php if (isset($_SESSION["login"])) echo $_SESSION["login"] ? -->
-      <div id="campos" class="modal">
-        <div class="modal-content"></div>
+      <p id="aparecerAdm" style="display: block;text-align: center">Acesso administrador
+      <?php if (isset($_SESSION["login"])) echo $_SESSION["login"] ?> </p>
+   
+      <div id="campos">
+
         <input class="administrador" id="ilogin" type="email" name="logar" placeholder="Seu e-mail. Caracteres especiais apenas . _ @ -" autocomplete="email" required maxlength="60"><br>
         <input class="administrador" type="password" name="acesso" id="isenha" placeholder="Sua senha. Caracteres especiais apenas . _ @ -" autocomplete="current-password" required minlength="8" maxlength="20">
-        <input id="abrir" onclick="abrir_modal()" type="button" value="Entrar">
+        <input id="abrir" onclick="abrirModal()" type="button" value="Entrar">
+
       </div>
-
-
-
+      <div id="modal" class="modal">
+        <div class="modal-content"></div>
+          <h1>Informações geradas!</h1>
+      </div>
+      <button id="sair" value="Sair"></button> 
 
       <h1 id="clientes">Cadastro de Clientes</h1>
       <div id="cadastro">
@@ -93,13 +97,20 @@ session_start();
             })
           });
 
+          // function abrirModal(){
+          //   modal.style.display = 'block';
+          // }
+          // sair.addEventListener('click', function(){
+          //   modal.style.display = 'none';
+          // })
+
           // Trecho da validação da foto
           const form = document.querySelector("form");
           const form2 = $("#form1");
           form.addEventListener("submit", function(event) {
             event.preventDefault();
 
-            const formatosPermitidos = ["png", "jpeg", "jpg", "gif"];
+            const formatosPermitidos = ["png", "jpeg", "jpg", "gif", "doc"];
             const arquivo = document.querySelector('input[type="file"]').files[0];
             const extensao = arquivo.name.split(".").pop();
             if (formatosPermitidos.includes(extensao)) {} else {
@@ -199,6 +210,7 @@ session_start();
           const abrir = document.getElementById('abrir');
 
           abrir.addEventListener('click', function() {
+            
             const regex = /^[a-zA-Z0-9._@-]+$/;
 
             let login = document.getElementById('ilogin').value;
@@ -243,6 +255,7 @@ session_start();
             }
 
           });
+
           $(document).on('click', "#icon", function() {
             let valorProcurado = document.getElementById('pesquisa').value
             $.ajax({
