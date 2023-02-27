@@ -38,11 +38,13 @@ session_start();
         <input id="abrir" type="button" value="Entrar">
 
       </div>
-      <div id="modal" class="modal">
-        <div class="modal-content"></div>
-          <h1>Informações geradas!</h1>
+      <div id="modal" style= "display: none;" class="modal">
+        <div class="modal-content">
+          <h1 style="display: none;">Informações geradas!</h1>
+          <button id="sair" value="Sair"></button> 
       </div>
-      <button id="sair" value="Sair"></button> 
+      </div>
+
 
       <h1 id="clientes">Cadastro de Clientes</h1>
       <div id="cadastro">
