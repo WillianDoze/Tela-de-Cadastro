@@ -6,10 +6,10 @@ Nº
 E-mail:
 Envio de arquivo: (pdf, doc, png)
 Gravar a data e hora da inclusão do registro e exibir no form -->
-<?php
+<!-- <?php
 session_start();
 
-?>
+?> -->
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -28,7 +28,8 @@ session_start();
   <main>
 
     <section id="login">
-      <p id="aparecerAdm" style="display: block;text-align: center">Acesso administrador <?php if (isset($_SESSION["login"])) echo $_SESSION["login"] ?></p>
+      <p id="aparecerAdm" style="display: block;text-align: center">Acesso administrador></p>
+      <!-- <?php if (isset($_SESSION["login"])) echo $_SESSION["login"] ? -->
       <div id="campos" class="modal">
         <div class="modal-content"></div>
         <input class="administrador" id="ilogin" type="email" name="logar" placeholder="Seu e-mail. Caracteres especiais apenas . _ @ -" autocomplete="email" required maxlength="60"><br>
@@ -194,12 +195,6 @@ session_start();
             const relogio = document.getElementById('relogio');
             relogio.innerText = montar_relogio;
           };
-
-          // function editar() {
-          //   const edit = document.getElementsByClassName('validacao');
-          //   edit.contentEditable = true;
-
-          // }
 
           const abrir = document.getElementById('abrir');
 
