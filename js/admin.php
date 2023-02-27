@@ -1,25 +1,31 @@
 <?php
 require_once("conexao.php");
-
+session_start();
 
 $sqlquery = "SELECT * FROM administrator WHERE EmailAdm = '".$_POST["logar"]."' AND SenhaAdm = '".$_POST["acesso"]."'";
 $login = $_POST['logar'];
 $password = $_POST['acesso'];
+
 if ($conn->query($sqlquery)) {
   $query = $conn->query($sqlquery);
   $resultado = $query->fetch_assoc();
   if($resultado && count($resultado)){
     echo "Acessando.......";
-    session_start();
-   $_SESSION['login'] = $resultado["NomeAdm"];
-   
+     $_SESSION['login'] = $resultado["NomeAdm"];
+
   }
-  else{
-    echo "Acesso negado, apenas administrador pode acessar essa página.";
+  
+  else if($_POST["logar"] && $_POST["acesso"]=== "Fim"){
+    echo "Sessão finalizada.";
+    session_destroy();
+  }else{
+    echo "Acesso negado, digite o campo corretamente para finalizar a sessão";
   }
 } else {
   echo "Error: " . $sqlquery . "<br>" . $conn->error;
 }
+
+
 
 // $login = $_POST['logar'];
 // $password = $_POST['acesso'];
