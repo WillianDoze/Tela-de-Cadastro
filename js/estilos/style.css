@@ -228,6 +228,7 @@ section#login > div#cadastro > #icon:hover{
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    text-align: center;
     width: 100%;
     gap: 9px;
     
